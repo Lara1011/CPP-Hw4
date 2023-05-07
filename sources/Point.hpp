@@ -4,8 +4,10 @@
 
 #ifndef CPP_HW4_POINT_H
 #define CPP_HW4_POINT_H
-using namespace ariel;
+#include <iostream>
+using namespace std;
 
+namespace ariel{
 class Point {
 private:
     double x;
@@ -18,6 +20,7 @@ public:
     void moveTowards(Point source, Point destination, double distance);
     void print();
 };
+}
 
 
 #endif //CPP_HW4_POINT_H
