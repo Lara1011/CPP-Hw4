@@ -6,95 +6,34 @@
 
 namespace ariel{
     Team::Team() {
-        Character l = Character();
-        this->leader = &l;
-        //this->add(&l);
+        Character ch = Character();
+        this->leader = &ch;
     }
-    Team::Team(Character *leader) : leader(leader){
-        //this->add(this->leader);
-    }
-
-    // Copy constructor
-    Team::Team(const Team& other) {
-        leader = new Character(*other.leader); // Deep copy the leader
-
-        for (Character* member : other.members) {
-            members.push_back(new Character(*member)); // Deep copy each member
-        }
+    Team::Team(Character *leader) : leader(leader) {
+        members.push_back(leader);
     }
 
-// Copy assignment operator
-    Team& Team::operator=(const Team& other) noexcept{
-        if (this != &other) {
-            // Delete existing members
-            for (Character *member: members) {
-                delete member;
-            }
-            members.clear();
-
-            // Copy leader
-            delete leader;
-            leader = new Character(*other.leader); // Deep copy the leader
-
-            // Copy members
-            for (Character *member: other.members) {
-                members.push_back(new Character(*member)); // Deep copy each member
-            }
-        }
-        return *this;
-    }
-
-    // Move constructor
-    Team::Team(Team&& other)  noexcept {
-        leader = other.leader;
-        members = std::move(other.members);
-        other.leader = nullptr;
-        other.members.clear();
-    }
-
-    // Move assignment operator
-    Team& Team::operator=(Team&& other)  noexcept {
-        if (this != &other) {
-// Delete existing members
-            for (Character *member: members) {
-                delete member;
-            }
-            members.clear();
-            // Move leader and members
-            delete leader;
-            leader = other.leader;
-            members = std::move(other.members);
-
-            // Reset other object
-            other.leader = nullptr;
-            other.members.clear();
-        }
-        return *this;
-    }
 
     Team::~Team() {
         for (Character* member : members) {
-            delete &member;
+            delete member;
         }
     }
 
-    void Team::add(Character *member) {
-        //this->members.push_back(member);
+
+    void Team::add(Character *fighter) {
+        members.push_back(fighter);
     }
 
-    void Team::attack(Team *enemy_team) {
+    void Team::attack(Team *enemyTeam) {
     }
 
     int Team::stillAlive() {
         return 0;
-        //return this->members.size();
     }
 
-    vector<Character*> Team::getMembers() {
-        return this->members;
+    void Team::print() {
     }
-
-    void Team::print() {}
 
     Team2::Team2() : Team(){}
     Team2::Team2(Character *leader) : Team(leader){}
