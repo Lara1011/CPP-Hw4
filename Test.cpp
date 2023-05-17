@@ -6,7 +6,6 @@
 #include "sources/Character.hpp"
 #include "sources/Team.hpp"
 #include "sources/Point.hpp"
-#include <chrono>
 #include <sstream>
 #include <cmath>
 
@@ -176,7 +175,7 @@ TEST_SUITE("Cowboy functions"){
     }
 
     TEST_CASE("print"){
-        CHECK(cw.print() == "");
+        CHECK(cw.print() == "C- Bob, Hit points: 110, Location: (0,0)");
     }
 
     TEST_CASE("void functions"){
@@ -205,7 +204,7 @@ TEST_SUITE("Ninja functions"){
         n.print();
         cout.rdbuf(oldCoutStreamBuf);
         string printedOutput = output.str();
-        REQUIRE(printedOutput == "");
+        REQUIRE(printedOutput == "N- Bob, Hit points: 100, Location: (0,0)");
     }
 }
 
@@ -223,7 +222,7 @@ TEST_SUITE("Team Functions"){
         t1.add(&yn);
         t1.add(&tn);
         t1.add(&on);
-        CHECK(t1.stillAlive() == 0);
+        CHECK(t1.stillAlive() == 4);
     }
 
     Cowboy cw{"Bob", Point()};
@@ -235,5 +234,32 @@ TEST_SUITE("Team Functions"){
 
     TEST_CASE("print"){
         CHECK_NOTHROW(t1.print());
+    }
+
+    TEST_CASE("Throw an error when trying to add a Character whose already a member of the team"){
+        t1.add(&yn);
+        CHECK_THROWS(t1.add(&yn));
+    }
+
+    TEST_CASE("get an error when trying to add more than 10 members to a team"){
+        Cowboy cw1{"Yan", Point()};
+        YoungNinja yn1{"Yin", Point()};
+        TrainedNinja tn1{"Yon", Point()};
+        OldNinja on1{"Tom", Point()};
+        Cowboy cw2{"Lily", Point()};
+        YoungNinja yn2{"Lara", Point()};
+        TrainedNinja tn2{"Lizy", Point()};
+        Team2 t3{&cw};
+        t3.add(&cw);
+        t3.add(&yn);
+        t3.add(&tn);
+        t3.add(&on);
+        t3.add(&yn1);
+        t3.add(&tn1);
+        t3.add(&on1);
+        t3.add(&cw1);
+        t3.add(&yn2);
+        t3.add(&tn2);
+        CHECK_THROWS(t2.add(&cw2));
     }
 }
