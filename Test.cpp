@@ -236,12 +236,17 @@ TEST_SUITE("Team Functions"){
         CHECK_NOTHROW(t1.print());
     }
 
-    TEST_CASE("Throw an error when trying to add a Character whose already a member of the team"){
+    TEST_CASE("A Character can't be in more than one team"){
+        t1.add(&yn);
+        CHECK_THROWS(t2.add(&yn));
+    }
+
+    TEST_CASE("Can't add a Character whose already a member of the team"){
         t1.add(&yn);
         CHECK_THROWS(t1.add(&yn));
     }
 
-    TEST_CASE("get an error when trying to add more than 10 members to a team"){
+    TEST_CASE("Can't add more than 10 members to a team"){
         Cowboy cw1{"Yan", Point()};
         YoungNinja yn1{"Yin", Point()};
         TrainedNinja tn1{"Yon", Point()};
