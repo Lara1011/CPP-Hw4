@@ -17,7 +17,9 @@ public:
     Point();
     Point(double num1, double num2);
     double distance(Point other);
-    void moveTowards(Point source, Point destination, double distance);
+    static Point moveTowards(Point source, Point destination, double distance);
+    double getX();
+    double getY();
     void print();
 };
 }

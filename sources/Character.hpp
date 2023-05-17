@@ -19,38 +19,40 @@ public:
     Character();
     Character(string name, Point location, int points);
     bool isAlive();
-    double distance(Character& other);
+    double distance(Character* other);
     void hit(int points);
     string getName();
     Point getLocation();
+    int getHitPoints();
     void print();
 };
 
     class Cowboy : public Character{
-    protected:
+    private:
         int bullets;
 
     public:
         Cowboy();
         Cowboy(string name, Point location);
-        Cowboy(string name, Point location, int points, int bults);
         void shoot(Character* other);
         bool hasboolets();
         void reload();
+        int getBullets();
         string print();
 
     };
 
     class Ninja : public Character{
-    protected:
+    private:
         int speed;
 
     public:
         Ninja();
         Ninja(string name, Point location);
-        Ninja(Point location, string name, int points, int speed);
+        Ninja(string name, Point location, int points, int speed);
         void move(Character* other);
         void slash(Character* other);
+        int getSpeed();
         string print();
     };
 
